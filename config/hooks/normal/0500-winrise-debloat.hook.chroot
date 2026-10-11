@@ -1,7 +1,7 @@
 #!/bin/sh
 # Remove apps "empurrados" que não fazem parte da proposta do WinRise Connect OS
 set -e
-BLOAT="plasma-welcome kdeconnect konqueror konqueror-doc khelpcenter kwrite kde-inotify-survey \
+BLOAT="plasma-welcome konqueror konqueror-doc khelpcenter kwrite kde-inotify-survey \
   plasma-browser-integration webext-plasma-browser-integration kgamma keditbookmarks \
   xterm zutty imagemagick-7.q16 display-im6.q16 debian-reference-common reportbug \
   kmail korganizer kaddressbook akregator kontact akonadi-server kdepim-runtime \

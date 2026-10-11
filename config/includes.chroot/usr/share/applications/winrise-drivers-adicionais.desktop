@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Additional Drivers
+Name[pt_BR]=Drivers Adicionais
+Comment=Install NVIDIA graphics drivers
+Comment[pt_BR]=Instalar o driver da placa de vídeo NVIDIA (com suporte a Secure Boot)
+Exec=/usr/local/bin/winrise-drivers-adicionais
+Icon=preferences-desktop-display-color
+Categories=Settings;HardwareSettings;System;
+Keywords=nvidia;driver;placa;video;gpu;

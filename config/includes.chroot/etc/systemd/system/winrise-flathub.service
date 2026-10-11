@@ -1,0 +1,11 @@
+[Unit]
+Description=WinRise: garantir o repositório Flathub na Loja de Aplicativos
+ConditionPathExists=!/var/lib/flatpak/repo/flathub.trustedkeys.gpg
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/flatpak remote-add --system --if-not-exists flathub /usr/share/winrise/flatpak/flathub.flatpakrepo
+
+[Install]
+WantedBy=multi-user.target

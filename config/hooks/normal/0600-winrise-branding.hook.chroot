@@ -3,10 +3,10 @@
 set -e
 dpkg-divert --quiet --local --rename --add /usr/lib/os-release || true
 cat > /usr/lib/os-release <<'OSR'
-PRETTY_NAME="WinRise Connect OS 0.2"
+PRETTY_NAME="WinRise Connect OS 0.3"
 NAME="WinRise Connect OS"
-VERSION_ID="0.2"
-VERSION="0.2 (base Debian 13 trixie)"
+VERSION_ID="0.3"
+VERSION="0.3 (base Debian 13 trixie)"
 VERSION_CODENAME=trixie
 DEBIAN_VERSION_FULL=13
 ID=winrise
@@ -17,8 +17,8 @@ BUG_REPORT_URL="https://github.com/wglebioravel/winrise-connect-os/issues"
 LOGO=winrise
 OSR
 ln -sf ../usr/lib/os-release /etc/os-release
-echo "WinRise Connect OS 0.2 \n \l" > /etc/issue
-echo "WinRise Connect OS 0.2" > /etc/issue.net
+echo "WinRise Connect OS 0.3 \n \l" > /etc/issue
+echo "WinRise Connect OS 0.3" > /etc/issue.net
 
 # Calamares: nome do produto
 for b in /etc/calamares/branding/*/branding.desc; do
@@ -26,8 +26,8 @@ for b in /etc/calamares/branding/*/branding.desc; do
   sed -i -E \
     -e 's/^(\s*productName:).*/\1 "WinRise Connect OS"/' \
     -e 's/^(\s*shortProductName:).*/\1 "WinRise"/' \
-    -e 's/^(\s*versionedName:).*/\1 "WinRise Connect OS 0.2"/' \
-    -e 's/^(\s*shortVersionedName:).*/\1 "WinRise Connect 0.2"/' \
+    -e 's/^(\s*versionedName:).*/\1 "WinRise Connect OS 0.3"/' \
+    -e 's/^(\s*shortVersionedName:).*/\1 "WinRise Connect 0.3"/' \
     -e 's/^(\s*bootloaderEntryName:).*/\1 "WinRise"/' \
     -e 's/^(\s*productUrl:).*/\1 "https:\/\/github.com\/wglebioravel\/winrise-connect-os"/' \
     -e 's/^(\s*supportUrl:).*/\1 "https:\/\/github.com\/wglebioravel\/winrise-connect-os\/issues"/' \

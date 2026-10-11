@@ -1,0 +1,11 @@
+[Unit]
+Description=WinRise: configurar a Restauração do Sistema (Timeshift)
+ConditionKernelCommandLine=!boot=live
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/winrise-timeshift-setup
+
+[Install]
+WantedBy=multi-user.target

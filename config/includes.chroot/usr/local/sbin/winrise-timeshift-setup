@@ -1,0 +1,22 @@
+#!/bin/bash
+# WinRise: configura a Restauração do Sistema (Timeshift, modo rsync) no sistema instalado em ext4
+grep -qw 'boot=live' /proc/cmdline && exit 0
+CONF=/etc/timeshift/timeshift.json
+[ -f "$CONF" ] && grep -q '"backup_device_uuid" *: *"[0-9a-fA-F-]\+"' "$CONF" && exit 0
+[ "$(findmnt -no FSTYPE /)" = ext4 ] || exit 0
+UUID=$(findmnt -no UUID /); [ -n "$UUID" ] || exit 0
+python3 - "$CONF" "$UUID" <<'PY'
+import json, os, sys
+conf, uuid = sys.argv[1], sys.argv[2]
+d = {}
+for f in (conf, "/etc/timeshift/default.json"):
+    if os.path.exists(f):
+        try: d = json.load(open(f)); break
+        except Exception: pass
+d.update({"backup_device_uuid": uuid, "parent_device_uuid": "", "do_first_run": "false",
+          "btrfs_mode": "false", "stop_cron_emails": "true",
+          "schedule_monthly": "false", "schedule_weekly": "true", "schedule_daily": "true",
+          "schedule_hourly": "false", "schedule_boot": "false",
+          "count_weekly": "2", "count_daily": "5"})
+json.dump(d, open(conf, "w"), indent=2)
+PY

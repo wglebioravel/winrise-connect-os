@@ -7,7 +7,7 @@
         "Id": "org.winrise.desktop",
         "License": "MIT",
         "Name": "WinRise",
-        "Version": "0.2"
+        "Version": "0.3"
     },
     "X-Plasma-APIVersion": "2"
 }

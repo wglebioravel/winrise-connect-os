@@ -1,0 +1,3 @@
+# WinRise: atualizações do sistema aplicadas na próxima reinicialização (offline), como no Windows
+[Software]
+UseOfflineUpdates=true

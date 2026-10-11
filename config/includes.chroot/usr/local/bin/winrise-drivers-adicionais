@@ -1,0 +1,2 @@
+#!/bin/sh
+exec konsole --hidetabbar -p tabtitle="Drivers Adicionais" -e /usr/local/sbin/winrise-drivers-install

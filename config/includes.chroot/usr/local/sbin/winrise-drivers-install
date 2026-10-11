@@ -1,0 +1,51 @@
+#!/bin/bash
+# WinRise Connect OS - Drivers Adicionais (placas de vídeo NVIDIA)
+# Instala o driver recomendado pelo nvidia-detect e, com Secure Boot ligado,
+# prepara a chave MOK do DKMS para o módulo ser aceito pelo firmware.
+set -u
+say() { printf '\n\033[1;36m==> %s\033[0m\n' "$*"; }
+pause() { read -r -p "Pressione Enter para fechar..." _; }
+if grep -qw 'boot=live' /proc/cmdline; then
+  say "Você está no modo live (pendrive)."
+  echo "Instale o WinRise Connect OS no computador primeiro e depois abra 'Drivers Adicionais' de novo."
+  pause; exit 0
+fi
+if [ "$(id -u)" != 0 ]; then exec pkexec "$0" "$@"; fi
+say "Procurando placas de vídeo NVIDIA..."
+OUT=$(nvidia-detect 2>&1); echo "$OUT"
+PKG=$(printf '%s\n' "$OUT" | grep -oE '^\s+nvidia-[a-z0-9-]*driver[a-z0-9-]*' | tr -d ' ' | tail -n1)
+if ! printf '%s' "$OUT" | grep -qi 'nvidia' || [ -z "$PKG" ]; then
+  say "Nenhum driver adicional é necessário neste computador."
+  echo "As placas Intel e AMD já funcionam com os drivers livres incluídos (Mesa)."
+  pause; exit 0
+fi
+say "Driver recomendado: $PKG"
+read -r -p "Instalar agora? [S/n] " r; case "${r:-s}" in [sS]*) ;; *) exit 0;; esac
+export DEBIAN_FRONTEND=noninteractive
+apt-get update || true
+apt-get install -y linux-headers-amd64 "$PKG" firmware-misc-nonfree nvidia-kernel-dkms || { say "A instalação falhou. Verifique a internet e tente de novo."; pause; exit 1; }
+if mokutil --sb-state 2>/dev/null | grep -qi 'enabled'; then
+  KEY=/var/lib/dkms/mok.pub
+  if [ -f "$KEY" ]; then
+    if mokutil --test-key "$KEY" 2>&1 | grep -qi 'already enrolled'; then
+      say "A chave do DKMS já está cadastrada no Secure Boot."
+    else
+      say "Secure Boot ligado: cadastrando a chave que assina o driver (MOK)"
+      echo "Crie uma senha simples (ex.: 12345678). Ela será pedida UMA vez, na próxima inicialização."
+      mokutil --import "$KEY"
+      cat <<'TXT'
+
+Na próxima reinicialização vai aparecer uma tela azul (MOK Manager):
+  1. Escolha "Enroll MOK"
+  2. Escolha "Continue" e depois "Yes"
+  3. Digite a senha que você acabou de criar
+  4. Escolha "Reboot"
+Se você não fizer isso, o driver NVIDIA não carrega com o Secure Boot ligado.
+TXT
+    fi
+  else
+    say "Aviso: a chave do DKMS ($KEY) não foi encontrada; o driver pode não carregar com Secure Boot."
+  fi
+fi
+say "Pronto! Reinicie o computador para usar o driver NVIDIA."
+pause

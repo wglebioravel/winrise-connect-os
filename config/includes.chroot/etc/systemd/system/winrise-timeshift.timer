@@ -1,0 +1,11 @@
+[Unit]
+Description=WinRise: verificar pontos de restauração a cada hora
+ConditionKernelCommandLine=!boot=live
+
+[Timer]
+OnBootSec=15min
+OnUnitActiveSec=1h
+Persistent=true
+
+[Install]
+WantedBy=timers.target

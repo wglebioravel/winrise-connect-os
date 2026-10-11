@@ -1,0 +1,4 @@
+# WinRise: atualizações automáticas, com poucos avisos (no máximo 1 lembrete por semana)
+[Global]
+UseUnattendedUpdates=true
+RequiredNotificationInterval=604800

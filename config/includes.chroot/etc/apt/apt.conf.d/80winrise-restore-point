@@ -1,0 +1,2 @@
+// WinRise: cria um ponto de restauração (Timeshift) antes de instalar/atualizar pacotes
+DPkg::Pre-Invoke { "[ -x /usr/local/sbin/winrise-restore-point ] && /usr/local/sbin/winrise-restore-point || true"; };

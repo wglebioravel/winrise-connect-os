@@ -1,0 +1,10 @@
+[Unit]
+Description=WinRise: pontos de restauração agendados (Timeshift)
+ConditionKernelCommandLine=!boot=live
+After=winrise-timeshift-setup.service
+
+[Service]
+Type=oneshot
+Nice=19
+IOSchedulingClass=idle
+ExecStart=/usr/bin/timeshift --check --scripted

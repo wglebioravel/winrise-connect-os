@@ -1,0 +1,19 @@
+#!/bin/sh
+# WinRise Connect OS: suporte a jogos (Steam + bibliotecas 32 bits)
+set -e
+dpkg --add-architecture i386
+# aceita a licença do Steam sem pergunta interativa
+cat <<'DEB' | debconf-set-selections
+steam steam/question select I AGREE
+steam steam/license note
+steam-installer steam/question select I AGREE
+steam-installer steam/license note
+DEB
+export DEBIAN_FRONTEND=noninteractive
+try() { n=0; until "$@"; do n=$((n+1)); [ $n -ge 6 ] && return 1; echo "falhou, tentando de novo ($n)..."; sleep 20; done; }
+try apt-get -o Acquire::Retries=10 update
+try apt-get -o Acquire::Retries=10 install -y --no-install-recommends \
+  steam-installer steam-libs-i386 \
+  mesa-vulkan-drivers:i386 libgl1-mesa-dri:i386 libglx-mesa0:i386 libgl1:i386 \
+  || echo "WINRISE-AVISO: nao foi possivel instalar o Steam/32 bits" >&2
+apt-get clean

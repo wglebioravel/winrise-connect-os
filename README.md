@@ -46,6 +46,27 @@ duplo clique e os mesmos atalhos de teclado.
 - **Em português do Brasil** por padrão (idioma pt-BR, teclado ABNT2, fuso de São Paulo), com
   inglês disponível.
 
+## Novidades da 0.3
+
+| Novidade | Onde fica | Como funciona |
+|---|---|---|
+| **Loja de Aplicativos com Flathub** | Menu Iniciar > Loja de Aplicativos | O Discover já vem com o Flathub ativado: Spotify, Discord, OBS Studio, VS Code, clientes de WhatsApp e milhares de outros apps com um clique |
+| **Restauração do Sistema** | Menu Iniciar / Painel de Controle | Timeshift no modo rsync (ext4): pontos de restauração diários (guarda 5) e semanais (guarda 2), e um ponto automático **antes de cada atualização** (no máximo 1 a cada 6 h, guarda os 3 últimos). Configurado sozinho no primeiro boot do sistema instalado; nunca roda no modo live |
+| **Atualizações automáticas** | automático | Correções de segurança e da versão estável do Debian (unattended-upgrades), atualizações do sistema aplicadas na reinicialização pela Loja (offline, como no Windows) e apps Flatpak atualizados todo dia. No máximo um lembrete por semana |
+| **Vincular ao Celular** | Menu Iniciar > Vincular ao Celular | KDE Connect: notificações, arquivos, área de transferência, controle de mídia e SMS. Instale o app **KDE Connect** no Android (Google Play ou F-Droid) ou no iPhone (App Store), com o celular e o PC na mesma rede Wi-Fi. O WinRise não vem com firewall ativo, então nada bloqueia a conexão (se você ativar um, libere as portas 1714 a 1764 TCP/UDP) |
+| **Jogos** | Menu Iniciar > Jogos | Instalador do Steam (Debian contrib, licença aceita na geração da ISO), bibliotecas 32 bits (Mesa/Vulkan i386) e GameMode |
+| **Secure Boot** | automático | A ISO inicia com o Secure Boot **ligado** (shim e GRUB assinados do Debian + kernel assinado) |
+| **Drivers Adicionais (NVIDIA)** | Menu Iniciar / Painel de Controle | Detecta a placa com o `nvidia-detect` e instala o driver recomendado no sistema instalado. Com Secure Boot ligado, cadastra a chave MOK do DKMS (veja abaixo) |
+
+### Placa NVIDIA com Secure Boot ligado
+
+O driver NVIDIA não vem no pendrive (ele é compilado pelo DKMS e precisa ser assinado). Depois de instalar o WinRise:
+
+1. Abra **Drivers Adicionais** e confirme a instalação do driver recomendado.
+2. Com o Secure Boot ligado, o assistente pede para você **criar uma senha** (ex.: `12345678`) para a chave MOK.
+3. Reinicie. Vai aparecer uma **tela azul (MOK Manager)**: escolha **Enroll MOK** > **Continue** > **Yes**, digite a senha e escolha **Reboot**.
+4. Pronto: o driver NVIDIA carrega normalmente com o Secure Boot ligado.
+
 ## O melhor de cada mundo
 
 O WinRise Connect OS não é só um clone do Windows 10: junta o que cada sistema faz de melhor,
@@ -152,7 +173,7 @@ Num Debian 13 (ou Ubuntu recente) com acesso root, internet e ~20 GB livres:
 git clone https://github.com/wglebioravel/winrise-connect-os.git
 cd winrise-connect-os
 make deps     # instala live-build, xorriso, qemu etc.
-make iso      # gera winrise-connect-os-0.2-amd64.iso (demora 20–60 min)
+make iso      # gera winrise-connect-os-0.3-amd64.iso (demora 20–60 min)
 make run-uefi # ou: make run-bios — testa no QEMU
 ```
 
@@ -171,7 +192,7 @@ Dicas para máquinas com pouca RAM ou rede instável:
 - **Rufus** (Windows): selecione a ISO; se perguntar, escolha o modo **DD**.
 - **Linux/macOS** (`dd`) — cuidado, apaga o pendrive inteiro:
   ```bash
-  sudo dd if=winrise-connect-os-0.2-amd64.iso of=/dev/sdX bs=4M status=progress oflag=sync
+  sudo dd if=winrise-connect-os-0.3-amd64.iso of=/dev/sdX bs=4M status=progress oflag=sync
   ```
 
 Depois é só dar boot pelo pendrive (F12/F11/F8/Esc no menu de boot do PC). O sistema abre

@@ -1,7 +1,7 @@
 # WinRise Connect OS — build da ISO live (Debian 13 + KDE Plasma estilo Windows 10)
 # Uso: make deps && make iso
 SHELL := /bin/bash
-VERSION ?= 0.2
+VERSION ?= 0.3
 LBISO := winrise-connect-os-amd64.hybrid.iso
 ISO   := winrise-connect-os-$(VERSION)-amd64.iso
 SUDO  ?= sudo

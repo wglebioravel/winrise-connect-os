@@ -1,0 +1,18 @@
+# --- WinRise Connect OS 0.3 ---
+# Loja de Aplicativos com Flathub
+flatpak
+plasma-discover-backend-flatpak
+# Restauração do Sistema
+timeshift
+# Atualizações automáticas
+unattended-upgrades
+# Vincular ao Celular
+kdeconnect
+# Jogos (o Steam e as bibliotecas 32 bits entram pelo hook 0450)
+gamemode
+mesa-vulkan-drivers
+# Drivers Adicionais / Secure Boot
+nvidia-detect
+mokutil
+shim-signed
+grub-efi-amd64-signed

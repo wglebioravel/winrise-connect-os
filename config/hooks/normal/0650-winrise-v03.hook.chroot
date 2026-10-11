@@ -1,0 +1,35 @@
+#!/bin/sh
+# WinRise Connect OS 0.3: Loja (Flathub), Restauração do Sistema, atualizações automáticas, Celular
+set -e
+
+# --- Loja de Aplicativos: Flathub para todo o sistema (arquivo local, sem depender da rede) ---
+if command -v flatpak >/dev/null; then
+  flatpak remote-add --system --if-not-exists flathub /usr/share/winrise/flatpak/flathub.flatpakrepo || \
+    echo "WINRISE-AVISO: Flathub será adicionado no primeiro boot" >&2
+fi
+
+# --- serviços e timers ---
+systemctl enable winrise-flathub.service winrise-timeshift-setup.service \
+  winrise-timeshift.timer winrise-flatpak-update.timer 2>/dev/null || true
+systemctl enable unattended-upgrades.service apt-daily.timer apt-daily-upgrade.timer 2>/dev/null || true
+
+# --- nomes amigáveis em pt-BR (Name[pt_BR] da entrada principal) ---
+setname() { # arquivo nome
+  f="$1"; n="$2"; [ -f "$f" ] || { echo "WINRISE-AVISO: $f não existe" >&2; return 0; }
+  if grep -q '^Name\[pt_BR\]=' "$f"; then
+    sed -i "0,/^Name\[pt_BR\]=.*/s//Name[pt_BR]=$n/" "$f"
+  else
+    sed -i "0,/^Name=.*/s//&\nName[pt_BR]=$n/" "$f"
+  fi
+}
+A=/usr/share/applications
+setname $A/org.kde.discover.desktop "Loja de Aplicativos"
+setname $A/timeshift-gtk.desktop "Restauração do Sistema"
+setname $A/org.kde.kdeconnect.app.desktop "Vincular ao Celular"
+setname $A/org.kde.kdeconnect-settings.desktop "Celular"
+setname $A/org.kde.kdeconnect.sms.desktop "Mensagens do Celular (SMS)"
+# Restauração do Sistema também aparece no Painel de Controle (categoria Sistema/Configurações)
+[ -f $A/timeshift-gtk.desktop ] && sed -i 's/^Categories=.*/Categories=System;Settings;Utility;/' $A/timeshift-gtk.desktop
+# o indicador KDE Connect "fora do Plasma" é redundante no Plasma
+[ -f $A/org.kde.kdeconnect.nonplasma.desktop ] && sed -i '/^\[Desktop Entry\]/a NoDisplay=true' $A/org.kde.kdeconnect.nonplasma.desktop
+true
