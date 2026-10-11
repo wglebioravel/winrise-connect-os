@@ -5,9 +5,11 @@ AccentColor=1,163,176
 LastUsedCustomAccentColor=1,163,176
 
 [Icons]
-Theme=breeze
+Theme=Papirus
 
 [KDE]
+# Windows 11: animações um pouco mais rápidas
+AnimationDurationFactor=0.7
 LookAndFeelPackage=org.winrise.desktop
 SingleClick=false
 widgetStyle=Breeze

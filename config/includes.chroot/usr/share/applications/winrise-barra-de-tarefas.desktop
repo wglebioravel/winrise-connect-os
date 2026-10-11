@@ -1,0 +1,21 @@
+[Desktop Entry]
+Type=Application
+Name=Center taskbar
+Name[pt_BR]=Centralizar barra de tarefas
+Comment=Switch taskbar icons between centered (Windows 11) and left (Windows 10)
+Comment[pt_BR]=Alterna os ícones da barra de tarefas entre centralizados (Windows 11) e à esquerda (Windows 10)
+Exec=/usr/local/bin/winrise-barra-de-tarefas alternar
+Icon=preferences-desktop-theme-global
+Categories=Settings;DesktopSettings;
+Keywords=barra;tarefas;centralizar;windows 11;taskbar;center;
+Actions=centro;esquerda;
+
+[Desktop Action centro]
+Name=Centered (Windows 11)
+Name[pt_BR]=Centralizada (estilo Windows 11)
+Exec=/usr/local/bin/winrise-barra-de-tarefas centro
+
+[Desktop Action esquerda]
+Name=Left (Windows 10)
+Name[pt_BR]=À esquerda (estilo Windows 10)
+Exec=/usr/local/bin/winrise-barra-de-tarefas esquerda

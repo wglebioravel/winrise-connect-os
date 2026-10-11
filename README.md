@@ -56,6 +56,8 @@ duplo clique e os mesmos atalhos de teclado.
 | **Vincular ao Celular** | Menu Iniciar > Vincular ao Celular | KDE Connect: notificações, arquivos, área de transferência, controle de mídia e SMS. Instale o app **KDE Connect** no Android (Google Play ou F-Droid) ou no iPhone (App Store), com o celular e o PC na mesma rede Wi-Fi. O WinRise não vem com firewall ativo, então nada bloqueia a conexão (se você ativar um, libere as portas 1714 a 1764 TCP/UDP) |
 | **Jogos** | Menu Iniciar > Jogos | Instalador do Steam (Debian contrib, licença aceita na geração da ISO), bibliotecas 32 bits (Mesa/Vulkan i386) e GameMode |
 | **Secure Boot** | automático | A ISO inicia com o Secure Boot **ligado** (shim e GRUB assinados do Debian + kernel assinado) |
+| **Acabamento Windows 11** | automático | Barra de tarefas flutuante com cantos arredondados, vidro fosco estilo Mica (desfoque mais forte com granulado) na barra, menu Iniciar, notificações e menus de contexto, ícones Papirus com pastas turquesa, mais espaço no menu Iniciar e animações mais rápidas com zoom suave |
+| **Centralizar barra de tarefas** | Painel de Controle > Centralizar barra de tarefas | Por padrão a barra fica à esquerda (Windows 10). Um clique centraliza o botão Iniciar e os apps (Windows 11); outro clique volta. Botão direito no atalho mostra as duas opções |
 | **Drivers Adicionais (NVIDIA)** | Menu Iniciar / Painel de Controle | Detecta a placa com o `nvidia-detect` e instala o driver recomendado no sistema instalado. Com Secure Boot ligado, cadastra a chave MOK do DKMS (veja abaixo) |
 
 ### Placa NVIDIA com Secure Boot ligado

@@ -16,10 +16,13 @@ Meta=org.kde.plasmashell,/PlasmaShell,org.kde.PlasmaShell,activateLauncherMenu
 [Plugins]
 blurEnabled=true
 contrastEnabled=true
+# Windows 11: janelas abrem/fecham com zoom suave
+scaleEnabled=true
+fadeEnabled=false
 
 [Effect-blur]
-BlurStrength=10
-NoiseStrength=2
+BlurStrength=12
+NoiseStrength=4
 
 # Windows 7 (Aero Snap): arrastar para as bordas/cantos = metade/quarto da tela, topo = maximizar
 [Windows]

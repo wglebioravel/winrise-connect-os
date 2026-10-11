@@ -33,3 +33,19 @@ setname $A/org.kde.kdeconnect.sms.desktop "Mensagens do Celular (SMS)"
 # o indicador KDE Connect "fora do Plasma" é redundante no Plasma
 [ -f $A/org.kde.kdeconnect.nonplasma.desktop ] && sed -i '/^\[Desktop Entry\]/a NoDisplay=true' $A/org.kde.kdeconnect.nonplasma.desktop
 true
+
+# --- ícones modernos: Papirus com pastas na cor turquesa da marca (como o papirus-folders faz) ---
+for d in /usr/share/icons/Papirus /usr/share/icons/Papirus-Dark /usr/share/icons/Papirus-Light; do
+  [ -d "$d" ] || continue
+  for p in "$d"/*/places; do
+    [ -d "$p" ] || continue
+    for f in "$p"/*-teal*.svg; do
+      [ -e "$f" ] || continue
+      b=$(basename "$f"); t=$(echo "$b" | sed 's/-teal//')
+      # só troca ícones que já existem (pasta padrão azul -> turquesa)
+      [ -e "$p/$t" ] && ln -sf "$b" "$p/$t"
+    done
+  done
+  gtk-update-icon-cache -q -f "$d" 2>/dev/null || true
+done
+true

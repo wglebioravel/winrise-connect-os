@@ -1,0 +1,3 @@
+# Windows 11 (Mica): menus de contexto levemente translúcidos, com desfoque do KWin por trás
+[Style]
+MenuOpacity=85

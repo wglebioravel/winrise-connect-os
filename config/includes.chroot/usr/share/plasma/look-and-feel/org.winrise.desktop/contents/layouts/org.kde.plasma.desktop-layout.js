@@ -1,11 +1,13 @@
-// WinRise Connect OS — layout padrão estilo Windows 10
+// WinRise Connect OS — layout padrão estilo Windows 10 com acabamento Windows 11
+// (para centralizar os ícones como no Windows 11: Painel de Controle > Centralizar barra de tarefas)
 // Barra de tarefas única embaixo: Iniciar | apps fixados + janelas | bandeja | relógio | mostrar área de trabalho
 
 var panel = new Panel;
 panel.location = "bottom";
-panel.height = 2 * Math.ceil(gridUnit * 2.4 / 2);
+panel.height = 2 * Math.ceil(gridUnit * 2.6 / 2);
 panel.hiding = "none";
-try { panel.floating = false; } catch (e) {}
+// Windows 11: barra "flutuante" com cantos arredondados (encosta na borda quando há janela maximizada)
+try { panel.floating = true; } catch (e) {}
 // Windows 7 (Aero): barra de tarefas translúcida com desfoque (efeito blur do KWin)
 try { panel.opacity = "translucent"; } catch (e) {}
 
@@ -18,6 +20,7 @@ kickoff.writeConfig("icon", "winrise-start");
 kickoff.writeConfig("favoritesDisplay", 0);      // fixados em grade
 kickoff.writeConfig("applicationsDisplay", 1);   // categorias em lista
 kickoff.writeConfig("showActionButtonCaptions", true);
+kickoff.writeConfig("compactMode", false);       // mais espaço entre os itens (Windows 11)
 kickoff.writeConfig("favorites", [
     // apps do dia a dia
     "google-chrome.desktop",

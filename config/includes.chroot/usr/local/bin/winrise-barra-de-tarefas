@@ -1,0 +1,28 @@
+#!/bin/bash
+# WinRise Connect OS: barra de tarefas à esquerda (Windows 10) ou centralizada (Windows 11)
+# uso: winrise-barra-de-tarefas [centro|esquerda|alternar]   (padrão: alternar)
+set -u
+MODE="${1:-alternar}"
+q() { qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$1"; }
+FIND='function winriseBar(){var ps=panels();for(var i=0;i<ps.length;i++){var p=ps[i];if(p.location!="bottom")continue;var ws=p.widgets();for(var j=0;j<ws.length;j++){if(ws[j].type=="org.kde.plasma.kickoff")return p;}}return null;}'
+if [ "$MODE" = alternar ]; then
+  st=$(q "$FIND"'var p=winriseBar();var c=0;if(p){var ws=p.widgets();for(var j=0;j<ws.length;j++)if(ws[j].type=="org.kde.plasma.panelspacer")c++;}print(c>0?"centro":"esquerda");')
+  case "$st" in *centro*) MODE=esquerda;; *) MODE=centro;; esac
+fi
+# passo 1: adiciona/remove os espaçadores flexíveis
+q "$FIND"'var p=winriseBar();if(p){var ws=p.widgets();for(var j=0;j<ws.length;j++)if(ws[j].type=="org.kde.plasma.panelspacer")ws[j].remove();'"$( [ "$MODE" = centro ] && echo 'p.addWidget("org.kde.plasma.panelspacer");p.addWidget("org.kde.plasma.panelspacer");' )"'}' >/dev/null
+sleep 2
+# passo 2: grava a ordem: [espaço] Iniciar + apps [espaço] | bandeja, relógio, mostrar área de trabalho
+q "$FIND"'var p=winriseBar();if(p){var ws=p.widgets();var k=[],t=[],s=[],r=[];
+for(var j=0;j<ws.length;j++){var w=ws[j];
+ if(w.type=="org.kde.plasma.kickoff")k.push(w.id);
+ else if(w.type=="org.kde.plasma.icontasks"||w.type=="org.kde.plasma.taskmanager")t.push(w.id);
+ else if(w.type=="org.kde.plasma.panelspacer")s.push(w.id);
+ else r.push(w.id);}
+var o=(s.length>=2)?[s[0]].concat(k,t,[s[1]],s.slice(2),r):k.concat(t,s,r);
+p.currentConfigGroup=["General"];p.writeConfig("AppletOrder",o.join(";"));p.reloadConfig();}' >/dev/null
+sleep 1
+# a barra pisca por alguns segundos enquanto o Plasma recarrega
+systemctl --user restart plasma-plasmashell.service 2>/dev/null || { kquitapp6 plasmashell; sleep 2; (setsid plasmashell >/dev/null 2>&1 &); }
+command -v notify-send >/dev/null && notify-send -a "WinRise" -i winrise "Barra de tarefas" \
+  "$( [ "$MODE" = centro ] && echo 'Ícones centralizados (estilo Windows 11).' || echo 'Ícones à esquerda (estilo Windows 10).')"
