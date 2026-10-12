@@ -39,7 +39,7 @@ duplo clique e os mesmos atalhos de teclado.
   trabalho" no canto, janelas claras com botões minimizar/maximizar/fechar à direita.
 - **Leve e limpo**: nada de notícias, clima, widgets, anúncios, "dicas", telemetria ou apps
   empurrados. Usamos o `kde-plasma-desktop` mínimo (não o `kde-standard`/`kde-full`):
-  sem PIM/Akonadi, sem jogos, sem KDE Connect, sem tela de boas-vindas, sem Konqueror.
+  sem PIM/Akonadi, sem tela de boas-vindas, sem Konqueror.
 - **Funciona em quase qualquer PC**: kernel Linux do Debian com firmware não-livre incluso
   (Wi-Fi Intel/Realtek/Atheros/Broadcom/MediaTek, GPUs AMD/Intel, áudio SOF), boot por
   **UEFI e BIOS legado** a partir da mesma ISO.
@@ -135,22 +135,22 @@ com a identidade própria da marca (azul-marinho, turquesa e dourado).
 | Terminal | Konsole |
 | Editor de texto | Kate |
 | PDF / Imagens / Compactados / Captura | Okular / Gwenview / Ark / Spectacle |
-| Loja de apps | Discover (Debian + Flatpak) |
+| Loja de apps | Discover (Debian + Flatpak/Flathub) |
 | Gerenciador de tarefas | Monitor do Sistema |
 | Rede / Som / Bluetooth | NetworkManager + applet Wi-Fi do Plasma, wpasupplicant, PipeWire, BlueZ + Bluedevil |
 | Impressoras e scanners | CUPS + Gerenciador de impressão do Plasma, drivers HP (HPLIP), Epson (ESC/P-R), Canon e outras (Gutenprint, Foomatic), Samsung/Xerox (SpliX), Brother (brlaser); impressoras de rede/Wi-Fi sem driver (IPP Everywhere/AirPrint via Avahi e ipp-usb); scanners com sane-airscan + Skanlite |
 | Máquinas virtuais | qemu-guest-agent, spice-vdagent, open-vm-tools (cada um só ativa no seu hypervisor) |
 | Instalador | Calamares |
 
-Removidos de propósito: Plasma Welcome, KDE Connect, Konqueror, KHelpCenter, KWrite,
-integração de navegador, jogos, PIM/Akonadi, widgets de clima/notícias.
+Removidos de propósito: Plasma Welcome, Konqueror, KHelpCenter, KWrite,
+integração de navegador, PIM/Akonadi, widgets de clima/notícias.
 
 ## Requisitos
 
 - PC **x86_64 (64 bits)** Intel ou AMD com um bom processador
 - **8 GB de RAM** ou mais
 - 30 GB de disco para instalar
-- UEFI (com Secure Boot desligado nesta versão) ou BIOS legado
+- UEFI (Secure Boot pode ficar ligado) ou BIOS legado
 
 ### Hardware incluído
 
@@ -240,11 +240,12 @@ de `artwork/winrise-connect-logo-original.jpg`.
 
 - [x] 0.1 — ISO live com KDE estilo Windows 10, navegação estilo Windows, sem bloatware, instalador Calamares
 - [x] 0.2 — novo nome e logo (WinRise Connect OS), Google Chrome + apps Google, impressoras/scanners, integração com VMs
+- [x] 0.3 — Loja com Flathub, Restauração do Sistema, atualizações automáticas, Vincular ao Celular, jogos (Steam), Secure Boot (shim/GRUB/kernel do Debian), Drivers Adicionais NVIDIA, acabamento Windows 11
 - [ ] Tema de janelas/ícones ainda mais próximo do Windows 10 e telas de boot (GRUB/Plymouth) próprias
 - [ ] Central de boas-vindas mínima e opcional (sem propaganda) com drivers NVIDIA em 1 clique
-- [ ] Secure Boot assinado
+- [ ] Secure Boot com chaves/assinatura próprias do WinRise (hoje usa as assinaturas do Debian)
 - [ ] Busca de arquivos no menu Iniciar com indexação leve
-- [ ] Atualizações automáticas silenciosas e opção de compatibilidade com apps Windows (Wine/Bottles)
+- [ ] Compatibilidade com apps Windows (Wine/Bottles)
 - [ ] Repositório próprio de pacotes `winrise-*` e builds automáticos (GitHub Actions)
 
 ## Licença
