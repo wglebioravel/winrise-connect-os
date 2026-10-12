@@ -69,6 +69,14 @@ O driver NVIDIA não vem no pendrive (ele é compilado pelo DKMS e precisa ser a
 3. Reinicie. Vai aparecer uma **tela azul (MOK Manager)**: escolha **Enroll MOK** > **Continue** > **Yes**, digite a senha e escolha **Reboot**.
 4. Pronto: o driver NVIDIA carrega normalmente com o Secure Boot ligado.
 
+### Capturas da 0.3
+
+| Barra à esquerda (padrão) | Barra centralizada (Windows 11) |
+|---|---|
+| ![](docs/winrise-taskbar-esquerda-v5.png) | ![](docs/winrise-taskbar-centro-v5.png) |
+| Busca rápida (Win+S) | Loja com Flathub |
+| ![](docs/winrise-search-v5.png) | ![](docs/winrise-loja-flathub-v5.png) |
+
 ## O melhor de cada mundo
 
 O WinRise Connect OS não é só um clone do Windows 10: junta o que cada sistema faz de melhor,
